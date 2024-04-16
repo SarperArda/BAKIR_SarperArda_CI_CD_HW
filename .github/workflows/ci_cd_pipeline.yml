@@ -66,5 +66,5 @@ jobs:
 
       - name: Build and push Docker image
         run: |
-          docker build -t your-dockerhub-username/YourName_CI_CD_HW .
-          docker push your-dockerhub-username/YourName_CI_CD_HW
+          docker build -t sarperarda/sarperardabakir_ci_cd_hw .
+          docker push sarperarda/sarperardabakir_ci_cd_hw
