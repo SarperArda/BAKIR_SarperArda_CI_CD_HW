@@ -1,3 +1,14 @@
+# This is a basic CI/CD pipeline for a Python project. It has three jobs: build, test, and deploy.
+# The build job builds the project using the build package. The test job runs the tests using pytest.
+# The deploy job builds a Docker image and pushes it to Docker Hub.
+# The pipeline is triggered on pushes to the main branch and pull requests to the main branch.
+# The pipeline uses GitHub Actions to run the jobs.
+# https://docs.github.com/en/actions/learn-github-actions
+# Github CoPilot aid is used to create this file.
+# @Sarper Arda BAKIR
+# @19-04-2024
+# @v1.0
+
 name: CI/CD Pipeline
 
 on:
@@ -9,6 +20,7 @@ on:
       - main
 
 jobs:
+  # Build the project
   build:
     runs-on: ubuntu-latest
     steps:
@@ -27,7 +39,7 @@ jobs:
       - name: Build project
         run: |
           python -m build
-
+  # Test the project
   test:
     runs-on: ubuntu-latest
     strategy:
@@ -49,7 +61,7 @@ jobs:
 
       - name: Run tests
         run: pytest
-
+  # Deploy the project
   deploy:
     runs-on: ubuntu-latest
     needs: [test]
@@ -57,7 +69,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Login to Docker Hub
+      - name: Login to Docker Hu
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
@@ -78,7 +90,3 @@ jobs:
             --build-arg PR_NUMBER=${{ steps.pr_info.outputs.pr_number }} \
             -t sarperarda/sarperardabakir_ci_cd_hw .
           docker push sarperarda/sarperardabakir_ci_cd_hw
-
-
-# deploy image is not working yet
-# In addition, it should run on every push to the main branch.  this part should be implemeted
